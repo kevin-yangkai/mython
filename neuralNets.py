@@ -31,7 +31,7 @@ def convertToOneOfMany(Y):
 
 # load data    
 # data = io.loadmat('database/num20201.mat')
-data = io.loadmat('ex3data1.mat')
+data = io.loadmat('datasets/ex3data1.mat')
 size = (20, 20)
 X = data['X']
 [m, n] = shape(X)

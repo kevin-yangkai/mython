@@ -1,7 +1,6 @@
 __author__ = 'zhangxulong'
 # use pca for dimension reduction
 from numpy import *
-import numpy
 
 
 def pca(mata, length):
@@ -15,10 +14,3 @@ def pca(mata, length):
     finalData = dot(rmmeanMat, tfMat)  #
     recoMat = finalData * tfMat.T * stdVal + meanVal
     return finalData, recoMat
-
-
-def test():
-    return 0
-
-
-test()

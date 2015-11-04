@@ -369,4 +369,4 @@ def test():
     p3 = argmax(dnn.predict([10, 30, 50, 20]))
     print "p3 is " + str(p3)
 
-test()
+#test()

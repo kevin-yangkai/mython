@@ -8,7 +8,7 @@ import numpy
 import cPickle as pickle
 
 import sklearn.preprocessing as preprocessing
-
+import os
 import tables as T
 from utils import *
 

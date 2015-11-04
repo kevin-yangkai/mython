@@ -2,7 +2,7 @@ __author__ = 'zhangxulong'
 from numpy import *
 import dnn
 import time
-from dataset import load_dataset, split_dataset
+from datasets import load_imdb
 from pybrain.utilities import percentError
 
 """ Mean Root Squared Error
@@ -28,17 +28,19 @@ def rmse(preds, targets):
 
 # time_start
 timestart = time.time()
-dataset = load_dataset('dataset.pkl')
+
 # trainset, testset = split_dataset(dataset) #it need shuffle##TODO
-trainset, testset = split_dataset(dataset)
-testset = trainset  ##TODO
+trainset, testset = load_imdb('datasets/dataset.pkl')
+
 
 # train
-train_data = trainset['data']
-train_target = trainset['target']
+train_data = trainset[0]
+train_target = trainset[1]
+class_num = len(unique(train_target))
+print ("class num:", class_num)
 
 # set the layers parm,and the max is 8 now
-layers = [13, 20, 10, 5, 20]  # first 10 is the 95mfcc's first 10 dim
+layers = [13, 20, 10, 5, class_num]  # first 10 is the 95mfcc's first 10 dim
 # run the dnn ,first autoencoder and then DNNRegressor
 autoencoder = dnn.AutoEncoder(train_data, train_data, train_target, layers, hidden_layer="SigmoidLayer",
                               final_layer="SoftmaxLayer", compression_epochs=1, bias=True, autoencoding_only=False,
@@ -53,9 +55,9 @@ print"====================train the dnn take %d second =========================
 # test
 test_time_start = time.time()
 
-test_target = testset['target']
+test_target = testset[1]
 predict_target = []
-for test_data in testset['data']:
+for test_data in testset[0]:
     print_value = 10
     if print_value > 0:
         print "test_data:%s=============" % str(test_data)
