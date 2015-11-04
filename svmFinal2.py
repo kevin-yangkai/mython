@@ -78,12 +78,12 @@ def arrangeData(X, Y, cutoff):
 #=========================== arrange data for use ==========================
 
 # load the data
-data = io.loadmat('database/num2020.mat')
+data = io.loadmat('datasets/ex3data1.mat')
 size = (20,20)
 
 # making X and Y numpy arrays
 X = data['X']
-Y = data['Y']
+Y = data['y']
 
 # changing identity of digits
 Y = Y-1
@@ -144,54 +144,5 @@ predictedOutput = classifier.predict(XTest[c])[0]
 actualOutput = YTest[c]
 print('predicted output is', predictedOutput, 'and actual output is', actualOutput)
 
-# ============== testing on unseen images out of dataset ====================
 
-imageName = ['01.png', '02.png' , '03.png', '04.png' , '05.png',
-             '11.png', '12.png' , '13.png', '14.png' , '15.png',
-             '21.png', '22.png' , '23.png', '24.png' , '25.png',
-             '31.png', '32.png' , '33.png', '34.png' , '35.png',
-             '41.png', '42.png' , '43.png', '44.png' , '45.png',
-             '51.png', '52.png' , '53.png', '54.png' , '55.png',
-             '61.png', '62.png' , '63.png', '64.png' , '65.png',
-             '71.png', '72.png' , '73.png', '74.png' , '75.png',
-             '81.png', '82.png' , '83.png', '84.png' , '85.png',
-             '91.png', '92.png' , '93.png', '94.png' , '95.png']
-
-print('testing on a png image')
-for x in imageName:
-
-    fullname = os.path.join('testImages/',x)
-    im = Image.open(fullname)
-
-    if(len(shape(im))==3):
-        imA = asarray(im, dtype='float')[:,:,1]
-    else:
-        imA = asarray(im, dtype='float')
-
-    # transform pixel vaues from 0-1
-    imA = (imA-amin(imA))/(amax(imA) - amin(imA))
-    imA = 1-imA
-
-    im1 = asarray(imA, dtype='float')
-    im1 = ndimage.grey_dilation(im1, size = (25,25))
-    im1 = Image.fromarray(im1)
-
-    #obtain boundingbox
-    box = (im1).getbbox()
-    im2 = im1.crop(box)
-
-    im3 = im2.resize(size)
-    im3 = asarray(im3, dtype="float")
-    im3 = 1- im3.T
-
-    im3 = uint8(im3)
-    #plotData2(im3)
-    im3 = im3.reshape((1,X.shape[1]))
-
-    #plotData(im3, y, 0)
-    #plt.show()
-
-    predictedOutput = classifier.predict(im3[0])[0]
-    print('predicted output is', predictedOutput)
-    
     

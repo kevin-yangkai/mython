@@ -481,7 +481,7 @@ def train_lstm(
     load_data, prepare_data = get_dataset(dataset)
 
     print 'Loading data'
-    train, valid, test = load_data(n_words=n_words, valid_portion=0.05,
+    train, valid, test = load_data(path="datasets/imdb.pkl",n_words=n_words, valid_portion=0.05,
                                    maxlen=maxlen)
     print"=========="
     print 'valid %i'%len(valid[1])
