@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import decomposition
 
-from dataset import load_dataset
+from datasets import load_dataset
 
 
 class Bunch(dict):
